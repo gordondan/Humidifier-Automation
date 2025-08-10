@@ -345,24 +345,34 @@ def run_trigger_monitor(controller: RelayController):
     
     def trigger_callback(channel):
         time.sleep(0.05)  # Debounce
-        if GPIO.input(channel) == GPIO.LOW:
-            if channel == controller.trigger_pins[0]:
-                print(f"🎯 Pin 35 (GPIO {channel}) triggered!")
-                controller.toggle_relay(0)
-            elif channel == controller.trigger_pins[1]:
-                print(f"🎯 Pin 37 (GPIO {channel}) triggered!")
-                controller.toggle_relay(1)
+        pin_state = GPIO.input(channel)
+        
+        if channel == controller.trigger_pins[0]:
+            if pin_state == GPIO.LOW:  # Pin grounded - turn relay ON
+                print(f"🎯 Pin 35 (GPIO {channel}) connected - RELAY 1 ON")
+                controller.relay_on(0)
+            else:  # Pin released - turn relay OFF
+                print(f"🔌 Pin 35 (GPIO {channel}) disconnected - RELAY 1 OFF")
+                controller.relay_off(0)
+        elif channel == controller.trigger_pins[1]:
+            if pin_state == GPIO.LOW:  # Pin grounded - turn relay ON
+                print(f"🎯 Pin 37 (GPIO {channel}) connected - RELAY 2 ON")
+                controller.relay_on(1)
+            else:  # Pin released - turn relay OFF
+                print(f"🔌 Pin 37 (GPIO {channel}) disconnected - RELAY 2 OFF")
+                controller.relay_off(1)
     
-    # Setup interrupts
+    # Setup interrupts for BOTH rising and falling edges
     for pin in controller.trigger_pins:
-        GPIO.add_event_detect(pin, GPIO.FALLING, callback=trigger_callback, bouncetime=200)
+        GPIO.add_event_detect(pin, GPIO.BOTH, callback=trigger_callback, bouncetime=100)
     
     signal.signal(signal.SIGINT, signal_handler)
     
     print("🔄 Monitoring GPIO triggers (Press Ctrl+C to exit)")
     print("📋 Instructions:")
-    print(f"   - Connect Pin 35 (GPIO {controller.trigger_pins[0]}) to ground → Toggle RELAY 1")
-    print(f"   - Connect Pin 37 (GPIO {controller.trigger_pins[1]}) to ground → Toggle RELAY 2")
+    print(f"   - Connect Pin 35 (GPIO {controller.trigger_pins[0]}) to ground → RELAY 1 ON (while connected)")
+    print(f"   - Connect Pin 37 (GPIO {controller.trigger_pins[1]}) to ground → RELAY 2 ON (while connected)")
+    print("   - Disconnect from ground → Relay turns OFF")
     print("   - Available ground pins: 6, 9, 14, 20, 25, 30, 34, 39\n")
     
     try:
