@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "WebFetch(domain:www.raspberrypi.com)",
+      "Bash(curl:*)",
+      "Bash(where xz)",
+      "Bash(xz:*)",
+      "Bash(format:*)",
+      "Bash(powershell:*)",
+      "Bash(dd:*)",
+      "Bash(ping:*)",
+      "Bash(ipconfig)",
+      "Bash(wmic:*)",
+      "Bash(touch:*)",
+      "Bash(cp:*)",
+      "Bash(rm:*)",
+      "Bash(ssh:*)",
+      "Bash(nslookup:*)",
+      "Bash(telnet:*)",
+      "Bash(nmap:*)",
+      "Bash(netsh:*)",
+      "Bash(scp:*)",
+      "Bash(gh repo create:*)",
+      "Bash(git remote add:*)",
+      "Bash(git push:*)",
+      "Bash(git rm:*)",
+      "Bash(true)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ],
+    "deny": []
+  }
+}

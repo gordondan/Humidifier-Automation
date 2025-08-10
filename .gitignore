@@ -1,0 +1,59 @@
+# Raspberry Pi Images (too large for GitHub)
+*.img
+
+# Large binary files
+.D*
+.F*
+D*ssh
+
+# WiFi credentials and sensitive config
+wpa_supplicant*.conf
+*_backup.conf
+configishstuff/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*~
+
+# Logs
+*.log
+*.out
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# OS specific
+.DS_Store
+Thumbs.db

@@ -1,0 +1,26 @@
+metadata:
+  project_name: Humidifier-Automation
+  generated_date: '2025-08-09'
+  last_updated: '2025-08-09T11:00:18.630246'
+  source: api_initialization
+  total_todos: 1
+  project_type: Work
+todos:
+- id: welcome-001
+  _hash: 368def62
+  title: Welcome to Humidifier-Automation Todo Management
+  description: This is your first todo item. You can edit or delete it and start adding
+    your own tasks.
+  status: pending
+  priority: medium
+  category: setup
+  created_date: '2025-08-09'
+  estimated_hours: 0.25
+  assigned_to: null
+  due_date: null
+  tags:
+  - welcome
+  - setup
+  dependencies: []
+  subtasks: []
+  section: Project Setup
