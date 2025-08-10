@@ -76,7 +76,7 @@ class RelayController:
         # Setup relay pins as outputs
         for pin in self.relay_pins:
             GPIO.setup(pin, GPIO.OUT)
-            GPIO.output(pin, GPIO.HIGH)  # OFF (active LOW)
+            GPIO.output(pin, GPIO.LOW)  # OFF (active HIGH)
         
         self.logger.info(f"🔧 GPIO initialized for relay pins: {self.relay_pins}")
     
@@ -92,7 +92,7 @@ class RelayController:
         """Turn on a specific relay (0-based index)"""
         if 0 <= relay_index < len(self.relay_pins):
             pin = self.relay_pins[relay_index]
-            GPIO.output(pin, GPIO.LOW)  # Active LOW
+            GPIO.output(pin, GPIO.HIGH)  # Active HIGH
             self.relay_states[relay_index] = True
             self.logger.info(f"✅ Relay {relay_index + 1} (GPIO {pin}) ON")
         else:
@@ -102,7 +102,7 @@ class RelayController:
         """Turn off a specific relay (0-based index)"""
         if 0 <= relay_index < len(self.relay_pins):
             pin = self.relay_pins[relay_index]
-            GPIO.output(pin, GPIO.HIGH)  # Active LOW
+            GPIO.output(pin, GPIO.LOW)  # Active HIGH
             self.relay_states[relay_index] = False
             self.logger.info(f"⭕ Relay {relay_index + 1} (GPIO {pin}) OFF")
         else:
@@ -164,16 +164,16 @@ class PinDiscovery:
         
         try:
             GPIO.setup(pin, GPIO.OUT)
-            GPIO.output(pin, GPIO.HIGH)  # Start OFF
+            GPIO.output(pin, GPIO.LOW)  # Start OFF
             
             # Test ON
-            print(f"   🟢 GPIO {pin} → LOW (should turn relay ON)")
-            GPIO.output(pin, GPIO.LOW)
+            print(f"   🟢 GPIO {pin} → HIGH (should turn relay ON)")
+            GPIO.output(pin, GPIO.HIGH)
             time.sleep(2)
             
             # Test OFF  
-            print(f"   ⭕ GPIO {pin} → HIGH (should turn relay OFF)")
-            GPIO.output(pin, GPIO.HIGH)
+            print(f"   ⭕ GPIO {pin} → LOW (should turn relay OFF)")
+            GPIO.output(pin, GPIO.LOW)
             time.sleep(1)
             
             # Ask user
@@ -185,7 +185,7 @@ class PinDiscovery:
             return False
         finally:
             try:
-                GPIO.output(pin, GPIO.HIGH)  # Ensure OFF
+                GPIO.output(pin, GPIO.LOW)  # Ensure OFF
             except:
                 pass
     
